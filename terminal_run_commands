@@ -3,8 +3,8 @@ cd /Users/macbook/Desktop/springBootApi/vtopacademy
 
 export MongoDb_DatabaseName=
 export MongoDb_PORT=
-export jwtSecret=
-export jwtExpirationInMilliSeconds=
+export JWT_SECRET=
+export JWT_EXPIRATION_IN_MILLISECONDS=
 
 ./mvnw clean spring-boot:run
 
