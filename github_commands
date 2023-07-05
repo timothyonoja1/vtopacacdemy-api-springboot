@@ -9,3 +9,5 @@ git commit -m "Initial Setup"
 git remote add origin https://github.com/timothyonoja1/vtopacacdemy-api-springboot.git
 
 git push -u origin main
+
+git commit -m "Add Account registration and authentication"

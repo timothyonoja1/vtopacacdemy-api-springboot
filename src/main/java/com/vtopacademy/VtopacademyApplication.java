@@ -14,9 +14,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories(basePackages = {"com.vtopacademy"}) 
 public class VtopacademyApplication {
 
-  public static void main(String[] args) {
-    SpringApplication.run(VtopacademyApplication.class, args);
-  }
+	public static void main(String[] args) {
+		SpringApplication.run(VtopacademyApplication.class, args);
+	}
   
 }
  
