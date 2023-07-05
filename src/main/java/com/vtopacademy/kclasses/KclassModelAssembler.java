@@ -19,7 +19,7 @@ public class KclassModelAssembler implements
 				.getOneKclass(kclass.getKclassID())).withSelfRel(),
 			linkTo(methodOn(KclassesController.class)
 				.getAllKclasses()).withRel("schools")
-			);
+			); 
 	}
 
 }

@@ -4,8 +4,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
-import com.vtopacademy.schools.SchoolsController;
 import com.vtopacademy.kclasses.KclassesController;
+import com.vtopacademy.exams.ExamsController;
 
 @Component
 public class SchoolModelAssembler implements 
@@ -20,10 +20,13 @@ public class SchoolModelAssembler implements
 			linkTo(methodOn(KclassesController.class)
 				.getKclassesBySchoolID(school.getSchoolID()))
 				.withRel("kclasses"), 
+			linkTo(methodOn(ExamsController.class)
+				.getExamsBySchoolID(school.getSchoolID()))
+				.withRel("exams"), 
 			linkTo(methodOn(SchoolsController.class)
 				.getAllSchools()).withRel("schools")
 			);
 	}
-	
+	  
 }
     

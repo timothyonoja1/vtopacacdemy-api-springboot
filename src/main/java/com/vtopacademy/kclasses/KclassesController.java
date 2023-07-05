@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vtopacademy.NotFoundException;
-import com.vtopacademy.schools.School;
+import com.vtopacademy.schools.School; 
 import com.vtopacademy.schools.SchoolRepository;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -113,7 +113,7 @@ public class KclassesController {
 	  	        kclass.setNumber(newKclass.getNumber());
 	  	        kclass.setSchool(school);
 	  	        return kclassRepository.save(kclass);
-	  	     })
+	  	     }) 
 	  	     .orElseGet(() -> {
 	  	        newKclass.setKclassID(id);
 	  	        return kclassRepository.save(newKclass);

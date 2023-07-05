@@ -10,6 +10,6 @@ import com.vtopacademy.schools.School;
 @Repository
 public interface KclassRepository extends JpaRepository<Kclass, Long> {
 	
-	  List<Kclass> findBySchool(School school);      
+	List<Kclass> findBySchool(School school);      
 	  
 }
