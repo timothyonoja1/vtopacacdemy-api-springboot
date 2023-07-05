@@ -1,0 +1,39 @@
+
+cd /Users/macbook/Desktop/springBootApi/vtopacademy
+
+export MongoDb_DatabaseName=
+export MongoDb_PORT=
+export jwtSecret=
+export jwtExpirationInMilliSeconds=
+
+./mvnw clean spring-boot:run
+
+// Schools
+curl -v localhost:8080/api/schools
+curl -v localhost:8080/api/schools/1
+curl -X POST localhost:8080/api/schools -H 'Content-type:application/json' -d '{"name": "Primary School", "number": 1}'
+curl -X PUT localhost:8080/api/schools/3 -H 'Content-type:application/json' -d '{"name": "Primary School", "number": 4}'
+curl -X DELETE localhost:8080/api/schools/3
+
+// Accounts
+curl -v localhost:8080/api/accounts/create-default-roles
+curl -X POST localhost:8080/api/accounts/register -H 'Content-type:application/json' -d '{"username": "timothy", "password": "12345678", "email": "timothy@gmail.com"}'
+curl -X POST localhost:8080/api/kclasses -H 'Content-type:application/json' -d '{"name": "Primary 1", "number": 1, "schoolID": 1}'
+
+
+//mongodb on local machine
+brew services start mongodb-community@6.0
+
+//Connect and use Mongodb
+mongosh
+
+brew services stop mongodb-community@6.0
+
+// Create a database if it doesn't exist
+use PracticeQuestionDatabase
+
+
+// Create collection
+db.createCollection('PracticeQuestions')
+
+curl -X POST localhost:8080/api/practice-questions -H 'Content-type:application/json' -d '{"videoID": "1", "examID": 1, "number": 1, "question": "q", "optionA": "A", "optionB": "B", "optionC": "C", "optionD": "D", "correctOption": "A"}'
