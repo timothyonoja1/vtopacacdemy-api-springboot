@@ -78,7 +78,7 @@ public class KclassesController {
 		Kclass kclass = kclassRepository.findById(kclassID) 
 	    	.orElseThrow(() -> new NotFoundException("Kclass", kclassID.toString()));
 
-	    return assembler.toModel(kclass); 
+	    return assembler.toModel(kclass);  
 	}
 	 
 	@PostMapping("")

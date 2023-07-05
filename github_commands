@@ -10,4 +10,4 @@ git remote add origin https://github.com/timothyonoja1/vtopacacdemy-api-springbo
 
 git push -u origin main
 
-git commit -m "Add Practice Questions"
+git commit -m "Add Subjects"

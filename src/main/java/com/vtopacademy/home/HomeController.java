@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import com.vtopacademy.account.AccountsController;
 import com.vtopacademy.schools.SchoolsController;
+import com.vtopacademy.exams.ExamsController;
 
 @Tag(name = "Accounts", description = "APIs for user registration and login")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -27,6 +28,8 @@ public class HomeController {
 		return EntityModel.of(home, 
 			linkTo(methodOn(SchoolsController.class)
 				.getAllSchools()).withRel("schools"),
+			linkTo(methodOn(ExamsController.class)
+					.getAllExams()).withRel("exams"), 
 			linkTo(methodOn(AccountsController.class)
 				.getAccountUrls()).withRel("accounts")
 			); 
