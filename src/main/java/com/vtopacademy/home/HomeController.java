@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-import com.vtopacademy.account.AccountsController ;
+import com.vtopacademy.account.AccountsController;
+import com.vtopacademy.schools.SchoolsController;
 
 @Tag(name = "Accounts", description = "APIs for user registration and login")
 @CrossOrigin(origins = "*", maxAge = 3600)
