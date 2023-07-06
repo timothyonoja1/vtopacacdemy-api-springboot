@@ -39,15 +39,18 @@ public class PracticeQuestionsController {
 	private PracticeQuestionModelAssembler assembler; 
  
 	@GetMapping("/by-videoID/{id}")  
-	public CollectionModel<EntityModel<PracticeQuestion>> getPracticeQuestionsByVideoID(@PathVariable String id) { 
+	public CollectionModel<EntityModel<PracticeQuestion>> 
+		getPracticeQuestionsByVideoID(@PathVariable String id) { 
 		String videoID = id; 
 		
-		List<EntityModel<PracticeQuestion>> practiceQuestions = practiceQuestionRepository.findByVideoID(videoID)
-			.stream().map(assembler::toModel).collect(Collectors.toList()); 
+		List<EntityModel<PracticeQuestion>> practiceQuestions 
+			= practiceQuestionRepository.findByVideoID(videoID)
+				.stream().map(assembler::toModel).collect(Collectors.toList()); 
 		
 		return CollectionModel.of(practiceQuestions,
-			linkTo(methodOn(PracticeQuestionsController.class).getPracticeQuestionsByVideoID(videoID))
-			.withSelfRel()); 
+			linkTo(methodOn(PracticeQuestionsController.class)
+				.getPracticeQuestionsByVideoID(videoID))
+				.withSelfRel()); 
 	} 
 	
 	@GetMapping("/{id}") 
@@ -59,7 +62,8 @@ public class PracticeQuestionsController {
 	}
 	
 	@PostMapping("") 
-	public ResponseEntity<?> createNewPracticeQuestion(@RequestBody PracticeQuestion practiceQuestion) { 
+	public ResponseEntity<?> createNewPracticeQuestion(
+			@RequestBody PracticeQuestion practiceQuestion) { 
 		 
 		EntityModel<PracticeQuestion> entityModel 
 			= assembler.toModel(practiceQuestionRepository.save(practiceQuestion));

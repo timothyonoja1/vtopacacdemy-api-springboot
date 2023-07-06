@@ -113,11 +113,11 @@ public class ExamsController {
 	  	        exam.setNumber(newExam.getNumber());
 	  	        exam.setSchool(school);
 	  	        return examRepository.save(exam);
-	  	     }) 
-	  	     .orElseGet(() -> {
+	  	    }) 
+	  	    .orElseGet(() -> {
 	  	        newExam.setExamID(id);
 	  	        return examRepository.save(newExam);
-	  	     });
+	  	    });
 	  	    
 	    EntityModel<Exam> entityModel = assembler.toModel(updatedExam);
 	  	    

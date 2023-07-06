@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vtopacademy.NotFoundException;
-import com.vtopacademy.kclasses.KclassesController;
 import com.vtopacademy.schools.School;
 import com.vtopacademy.schools.SchoolRepository;
 
@@ -38,7 +37,7 @@ public class SubjectsController {
 	@Autowired
 	private SchoolRepository schoolRepository; 
 
-	@Autowired
+	@Autowired 
 	private SubjectRepository subjectRepository;
 	
 	@Autowired
@@ -49,11 +48,11 @@ public class SubjectsController {
 	@GetMapping("")
 	public CollectionModel<EntityModel<Subject>> getAllSubjects() {  
 		List<EntityModel<Subject>> subjects = subjectRepository.findAll().stream() 
-				.map(assembler::toModel)  
-				.collect(Collectors.toList());
-			return CollectionModel.of(subjects, 
-				linkTo(methodOn(KclassesController.class).getAllKclasses()) 
-				.withSelfRel());  
+			.map(assembler::toModel)  
+			.collect(Collectors.toList());
+		return CollectionModel.of(subjects, 
+			linkTo(methodOn(SubjectsController.class).getAllSubjects()) 
+			.withSelfRel());  
 	}	
 	
 	@GetMapping("/by-schoolID/{id}")  
@@ -61,15 +60,14 @@ public class SubjectsController {
 		Long schoolID = id;
 		
 		School school = schoolRepository.findById(schoolID) 
-	    	.orElseThrow(() -> new NotFoundException("School", schoolID.toString()));
-		
+			.orElseThrow(() -> new NotFoundException("School", schoolID.toString()));
 		
 		List<EntityModel<Subject>> subjects = subjectRepository.findBySchool(school)
 			.stream().map(assembler::toModel).collect(Collectors.toList());
 		
 		return CollectionModel.of(subjects,
 			linkTo(methodOn(SubjectsController.class).getAllSubjects())
-			.withSelfRel());   
+			.withSelfRel());    
 	}
 	
 	// Single item
@@ -83,7 +81,7 @@ public class SubjectsController {
 	} 
 		
 	@PostMapping("")
-	public ResponseEntity<?> createNewKSubject(@Valid @RequestBody SubjectRequest subjectRequest) { 
+	public ResponseEntity<?> createNewSubject(@Valid @RequestBody SubjectRequest subjectRequest) { 
 		School school = schoolRepository.findById(subjectRequest.getSchoolID()) 
 		    .orElseThrow(() -> new NotFoundException("School", subjectRequest.getSchoolID().toString()));
 		Subject newSubject = new Subject(
@@ -114,17 +112,17 @@ public class SubjectsController {
 	  	        subject.setNumber(newSubject.getNumber());
 	  	        subject.setSchool(school);
 	  	        return subjectRepository.save(subject);
-	  	     }) 
-	  	     .orElseGet(() -> {
+	  	    }) 
+	  	    .orElseGet(() -> {
 	  	    	newSubject.setSubjectID(id);
-	  	        return subjectRepository.save(newSubject);
-	  	     });
+	  	    	return subjectRepository.save(newSubject);
+	  	    });
 	  	    
 	    EntityModel<Subject> entityModel = assembler.toModel(updatedSubject);
-	  	    
-	  	return ResponseEntity .created(entityModel.getRequiredLink(IanaLinkRelations.SELF)
-	  		.toUri()) //
-	  		.body(entityModel);
+	  	     
+	    return ResponseEntity .created(entityModel.getRequiredLink(IanaLinkRelations.SELF)
+	    	.toUri()) //
+	    	.body(entityModel);
 	}
 	
 	@DeleteMapping("/{id}")

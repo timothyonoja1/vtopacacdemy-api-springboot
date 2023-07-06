@@ -4,17 +4,17 @@ import jakarta.validation.constraints.NotBlank;
 
 public class SubjectRequest {
 
-	@NotBlank
+	@NotBlank 
 	private final String name;
 	
 	@NotBlank
 	private final int number;
 	
-	@NotBlank
+	@NotBlank 
 	private final Long schoolID;
 
-	public SubjectRequest(@NotBlank String name, @NotBlank int number, @NotBlank Long schoolID) {
-		super();
+	public SubjectRequest(@NotBlank String name,
+			@NotBlank int number, @NotBlank Long schoolID) {
 		this.name = name;
 		this.number = number;
 		this.schoolID = schoolID;

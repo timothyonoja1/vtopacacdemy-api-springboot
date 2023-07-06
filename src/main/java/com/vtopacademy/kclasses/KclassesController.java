@@ -100,8 +100,8 @@ public class KclassesController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> replaceKclass(@Valid @RequestBody KclassRequest kclassRequest, @PathVariable Long id) {
 		Long kclassID = id;
-		School school = schoolRepository.findById(kclassRequest.getSchoolID()) 
-	    	.orElseThrow(() -> new NotFoundException("School", kclassRequest.getSchoolID().toString()));
+		School school = schoolRepository.findById(kclassRequest.getSchoolID()).orElseThrow(
+			() -> new NotFoundException("School", kclassRequest.getSchoolID().toString()));
 		Kclass newKclass = new Kclass(
 			kclassRequest.getName(),
 			kclassRequest.getNumber(),
@@ -113,11 +113,11 @@ public class KclassesController {
 	  	        kclass.setNumber(newKclass.getNumber());
 	  	        kclass.setSchool(school);
 	  	        return kclassRepository.save(kclass);
-	  	     }) 
-	  	     .orElseGet(() -> {
+	  	    }) 
+	  	    .orElseGet(() -> {
 	  	        newKclass.setKclassID(id);
 	  	        return kclassRepository.save(newKclass);
-	  	     });
+	  	    });
 	  	    
 	    EntityModel<Kclass> entityModel = assembler.toModel(updatedKclass);
 	  	    

@@ -14,7 +14,7 @@ import com.vtopacademy.account.AccountsController;
 import com.vtopacademy.schools.SchoolsController;
 import com.vtopacademy.exams.ExamsController;
 
-@Tag(name = "Accounts", description = "APIs for user registration and login")
+@Tag(name = "Account", description = "APIs for User registration and login")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class HomeController {

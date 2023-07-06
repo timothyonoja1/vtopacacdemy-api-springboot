@@ -1,10 +1,11 @@
-package com.vtopacademy.subjects;
+package com.vtopacademy.topics;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vtopacademy.schools.School;
+import com.vtopacademy.kclasses.Kclass;
+import com.vtopacademy.subjects.Subject;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,17 +17,17 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "subjects", 
+@Table(name = "topics", 
 	uniqueConstraints = { 
 		@UniqueConstraint(columnNames = "name")
 	}
 )
-public class Subject {
-
+public class Topic {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, 
 		generator = "comment_generator")
-	private Long subjectID;  
+	private Long topicID;   
 	
 	private String name; 
 	
@@ -35,24 +36,31 @@ public class Subject {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false) 
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
-	private School school;  
+	private Kclass kclass;  
 	
-	public Subject() {
+	@ManyToOne(fetch = FetchType.LAZY, optional = false) 
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private Subject subject;  
+	
+	public Topic() {
 		
 	}
 
-	public Subject(String name, int number, School school) {
+	public Topic(String name, int number, 
+			Kclass kclass, Subject subject) {
 		this.name = name;
 		this.number = number;
-		this.school = school;
+		this.kclass = kclass;
+		this.subject = subject;
 	}
 
-	public Long getSubjectID() {
-		return subjectID;
+	public Long getTopicID() {
+		return topicID;
 	}
 
-	public void setSubjectID(Long subjectID) {
-		this.subjectID = subjectID;
+	public void setTopicID(Long topicID) {
+		this.topicID = topicID;
 	}
 
 	public String getName() {
@@ -71,12 +79,20 @@ public class Subject {
 		this.number = number;
 	}
 
-	public School getSchool() {
-		return school;
+	public Kclass getKclass() {
+		return kclass;
 	}
 
-	public void setSchool(School school) {
-		this.school = school;
+	public void setKclass(Kclass kclass) {
+		this.kclass = kclass;
+	}
+
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
 	}
 	
 	
