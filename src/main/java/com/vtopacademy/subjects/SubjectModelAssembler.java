@@ -21,7 +21,7 @@ public class SubjectModelAssembler implements
 				.getTopicsBySubjectID(subject.getSubjectID(), 0, 10))
 				.withRel("topicsBySubjectID"),
 			linkTo(methodOn(SubjectsController.class)
-				.getAllSubjects()).withRel("schools"));   
+				.getAllSubjects()).withRel("subjects"));   
 	} 
 
-}
+} 

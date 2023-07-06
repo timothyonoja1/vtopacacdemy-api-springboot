@@ -13,8 +13,8 @@ public class SubjectRequest {
 	@NotBlank 
 	private final Long schoolID;
 
-	public SubjectRequest(@NotBlank String name,
-			@NotBlank int number, @NotBlank Long schoolID) {
+	public SubjectRequest(String name,
+			int number, Long schoolID) {
 		this.name = name;
 		this.number = number;
 		this.schoolID = schoolID;
