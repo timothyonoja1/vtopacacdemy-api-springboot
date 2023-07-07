@@ -16,9 +16,8 @@ public class PracticeQuestionModelAssembler implements
 
 		return EntityModel.of(practiceQuestion, 
 			linkTo(methodOn(PracticeQuestionsController.class) 
-				.getOnePracticeQuestion(practiceQuestion.getId())).withSelfRel(),
-			linkTo(methodOn(PracticeQuestionsController.class) 
-				.getPracticeQuestionsByVideoID(practiceQuestion.getVideoID())).withRel("schools")
+				.getPracticeQuestionsByVideoID(practiceQuestion.getVideoID()))
+				.withRel("practiceQuestionsByVideoID")
 			); 
 	}
 

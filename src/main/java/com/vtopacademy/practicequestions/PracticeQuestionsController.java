@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vtopacademy.NotFoundException;
-
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "PracticeQuestion", description = "PracticeQuestion management APIs")
@@ -33,8 +31,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class PracticeQuestionsController {
 	
 	@Autowired
-	private PracticeQuestionRepository practiceQuestionRepository;
-	
+	private PracticeQuestionService practiceQuestionService;
 	@Autowired
 	private PracticeQuestionModelAssembler assembler; 
  
@@ -44,7 +41,7 @@ public class PracticeQuestionsController {
 		Long videoID = id; 
 		
 		List<EntityModel<PracticeQuestion>> practiceQuestions 
-			= practiceQuestionRepository.findByVideoID(videoID)
+			= practiceQuestionService.getPracticeQuestions(videoID)
 				.stream().map(assembler::toModel).collect(Collectors.toList()); 
 		
 		return CollectionModel.of(practiceQuestions,
@@ -53,20 +50,12 @@ public class PracticeQuestionsController {
 				.withSelfRel()); 
 	} 
 	
-	@GetMapping("/{id}") 
-	public EntityModel<PracticeQuestion> getOnePracticeQuestion(@PathVariable String id) { 
-		PracticeQuestion practiceQuestion = practiceQuestionRepository.findById(id) 
-	    	.orElseThrow(() -> new NotFoundException("PracticeQuestion", id));
-
-	    return assembler.toModel(practiceQuestion); 
-	}
-	
 	@PostMapping("") 
-	public ResponseEntity<?> createNewPracticeQuestion(
+	public ResponseEntity<?> createNewPracticeQuestion( 
 			@RequestBody PracticeQuestion practiceQuestion) { 
 		 
-		EntityModel<PracticeQuestion> entityModel 
-			= assembler.toModel(practiceQuestionRepository.save(practiceQuestion));
+		EntityModel<PracticeQuestion> entityModel = assembler.toModel(
+			practiceQuestionService.savePracticeQuestion(practiceQuestion));
 		
 		return ResponseEntity 
 			.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) 
@@ -76,35 +65,20 @@ public class PracticeQuestionsController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> replacePracticeQuestion(
 			@RequestBody PracticeQuestion newPracticeQuestion, @PathVariable String id) { 
-		PracticeQuestion updatedPracticeQuestion = practiceQuestionRepository.findById(id)
-			.map(practiceQuestion -> {
-				practiceQuestion.setVideoID(newPracticeQuestion.getVideoID());
-				practiceQuestion.setExamID(newPracticeQuestion.getExamID());
-				practiceQuestion.setNumber(newPracticeQuestion.getNumber());
-				practiceQuestion.setQuestion(newPracticeQuestion.getQuestion()); 
-				practiceQuestion.setOptionA(newPracticeQuestion.getOptionA());
-				practiceQuestion.setOptionB(newPracticeQuestion.getOptionB());
-				practiceQuestion.setOptionC(newPracticeQuestion.getOptionC());
-				practiceQuestion.setOptionD(newPracticeQuestion.getOptionD());
-				practiceQuestion.setCorrectOption(newPracticeQuestion.getCorrectOption());
-			    return practiceQuestionRepository.save(practiceQuestion);
-			})
-			.orElseGet(() -> {
-			    newPracticeQuestion.setId(id);
-			    return practiceQuestionRepository.save(newPracticeQuestion); 
-			});
+		PracticeQuestion result = practiceQuestionService
+			.updatePracticeQuestion(newPracticeQuestion);
 			    
-			EntityModel<PracticeQuestion> entityModel 
-			    	= assembler.toModel(updatedPracticeQuestion); 
+		EntityModel<PracticeQuestion> entityModel = assembler.toModel(result); 
 			     
-			return ResponseEntity 
-						.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
-					    .body(entityModel);
+		return ResponseEntity 
+			.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) 
+			.body(entityModel);
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deletePracticeQuestion(@PathVariable String id) {
-		practiceQuestionRepository.deleteById(id);
+	@DeleteMapping("/videoID/{videoID}/number/{number}") 
+	public ResponseEntity<?> deletePracticeQuestion(
+			@PathVariable Long videoID, @PathVariable int number) {
+		practiceQuestionService.deletePracticeQuestion(videoID, number);
 		return ResponseEntity.noContent().build(); 
 	}
 	 

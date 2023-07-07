@@ -8,7 +8,7 @@ export JWT_EXPIRATION_IN_MILLISECONDS=
 
 ./mvnw clean spring-boot:run
 
-// Schools
+// Schools 
 curl -v localhost:8080/api/schools
 curl -v localhost:8080/api/schools/1
 curl -X POST localhost:8080/api/schools -H 'Content-type:application/json' -d '{"name": "Primary School", "number": 1}'

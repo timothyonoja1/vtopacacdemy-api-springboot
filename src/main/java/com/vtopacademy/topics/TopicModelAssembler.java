@@ -5,9 +5,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Component;
 
 import com.vtopacademy.subtopics.SubTopicsController;
 
+@Component 
 public class TopicModelAssembler implements 
 	RepresentationModelAssembler<Topic, EntityModel<Topic>> {
 

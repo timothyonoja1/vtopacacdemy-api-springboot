@@ -40,7 +40,7 @@ public class SubjectsController {
 	@Autowired 
 	private SubjectRepository subjectRepository;
 	
-	@Autowired
+	@Autowired 
 	private SubjectModelAssembler assembler;  
 	
 	// Aggregate root 
