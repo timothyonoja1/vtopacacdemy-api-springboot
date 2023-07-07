@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PracticeQuestionRepository extends MongoRepository<PracticeQuestion, String> {
 
-	List<PracticeQuestion> findByVideoID(String videoID); 
+	List<PracticeQuestion> findByVideoID(Long videoID); 
 
 } 

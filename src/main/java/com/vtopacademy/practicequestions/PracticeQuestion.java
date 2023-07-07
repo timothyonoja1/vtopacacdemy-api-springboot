@@ -9,7 +9,7 @@ public class PracticeQuestion {
 	@Id
 	private String id;
 	
-	private String  videoID;
+	private Long videoID;
 	private Long examID;
 	private int number;
 	private String question;
@@ -19,7 +19,7 @@ public class PracticeQuestion {
 	private String optionD;
 	private Option correctOption; 
 	
-	public PracticeQuestion(String videoID, Long examID, int number, String question, 
+	public PracticeQuestion(Long videoID, Long examID, int number, String question, 
 			String optionA, String optionB, String optionC,
 			String optionD, Option correctOption) {
 		this.videoID = videoID;
@@ -43,11 +43,11 @@ public class PracticeQuestion {
 		this.id = id;
 	}
 
-	public String getVideoID() {
+	public Long getVideoID() {
 		return videoID;
 	}
 
-	public void setVideoID(String videoID) {
+	public void setVideoID(Long videoID) {
 		this.videoID = videoID;
 	}
 

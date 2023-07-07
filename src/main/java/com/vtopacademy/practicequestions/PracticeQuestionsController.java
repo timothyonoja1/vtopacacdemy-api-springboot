@@ -40,8 +40,8 @@ public class PracticeQuestionsController {
  
 	@GetMapping("/by-videoID/{id}")  
 	public CollectionModel<EntityModel<PracticeQuestion>> 
-		getPracticeQuestionsByVideoID(@PathVariable String id) { 
-		String videoID = id; 
+		getPracticeQuestionsByVideoID(@PathVariable Long id) { 
+		Long videoID = id; 
 		
 		List<EntityModel<PracticeQuestion>> practiceQuestions 
 			= practiceQuestionRepository.findByVideoID(videoID)
@@ -49,7 +49,7 @@ public class PracticeQuestionsController {
 		
 		return CollectionModel.of(practiceQuestions,
 			linkTo(methodOn(PracticeQuestionsController.class)
-				.getPracticeQuestionsByVideoID(videoID))
+				.getPracticeQuestionsByVideoID(id))
 				.withSelfRel()); 
 	} 
 	

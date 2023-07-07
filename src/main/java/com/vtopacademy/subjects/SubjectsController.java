@@ -34,7 +34,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/subjects")
 public class SubjectsController {
 	
-	@Autowired
+	@Autowired 
 	private SchoolRepository schoolRepository; 
 
 	@Autowired 
@@ -95,7 +95,7 @@ public class SubjectsController {
 			.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) 
 			.body(entityModel); 
 	}
-	
+	 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> replaceSubject(@Valid @RequestBody SubjectRequest subjectRequest, @PathVariable Long id) {
 		Long subjectID = id;
